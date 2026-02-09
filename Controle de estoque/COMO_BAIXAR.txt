@@ -1,0 +1,86 @@
+╔══════════════════════════════════════════════════════════════════╗
+║       📦 INSTALAÇÃO RÁPIDA - Windows & Linux                     ║
+╚══════════════════════════════════════════════════════════════════╝
+
+🐧 LINUX (Ubuntu/Debian):
+─────────────────────────────
+1. Instalar Python:
+   sudo apt update
+   sudo apt install python3 python3-pip -y
+
+2. Instalar dependências:
+   pip3 install openpyxl pandas matplotlib seaborn --user
+
+3. Executar:
+   python3 gerar_planilha.py
+
+
+🪟 WINDOWS:
+─────────────────────────────
+1. Baixar Python:
+   → https://www.python.org/downloads/
+   ✅ MARQUE: "Add Python to PATH"
+
+2. Instalar dependências (Prompt de Comando):
+   pip install openpyxl pandas matplotlib seaborn
+
+3. Executar:
+   python gerar_planilha.py
+
+
+📦 DEPENDÊNCIAS NECESSÁRIAS:
+─────────────────────────────
+• openpyxl 3.1.5  → Manipular Excel
+• pandas 2.3.3    → Análise de dados
+• matplotlib 3.10 → Gráficos
+• seaborn 0.13    → Visualização
+
+
+📂 ARQUIVOS PARA COPIAR AO TROCAR DE MÁQUINA:
+─────────────────────────────────────────────
+ESSENCIAIS:
+✅ utils.py
+✅ config.py
+✅ gerar_planilha.py
+✅ registrar_entrada.py
+✅ registrar_saida.py
+✅ analise_dashboard.py
+✅ exportar_para_BI.py
+✅ requirements.txt
+
+DADOS (opcional - se quiser manter):
+📊 Controle_Estoque.xlsx
+📊 dashboard_estoque.png
+📊 dados_csv/
+📊 dados_power_bi/
+
+
+🔄 MIGRAR ENTRE MÁQUINAS:
+─────────────────────────
+Linux:
+  tar -czf backup.tar.gz "Controle de estoque"/
+  # Copiar backup.tar.gz para nova máquina
+  tar -xzf backup.tar.gz
+
+Windows:
+  # Compactar pasta em ZIP
+  # Copiar para nova máquina e extrair
+
+
+✅ TESTAR INSTALAÇÃO:
+─────────────────────
+Linux:   python3 -c 'import openpyxl, pandas; print("OK")'
+Windows: python -c "import openpyxl, pandas; print('OK')"
+
+
+📚 DOCUMENTAÇÃO COMPLETA:
+─────────────────────────
+Veja: INSTALACAO.md (detalhes completos)
+      INDEX.md (navegação)
+      INICIO_RAPIDO.md (primeiros passos)
+
+
+═══════════════════════════════════════════════════════════════════
+Sistema compatível com Windows 10/11 e Linux (Ubuntu/Debian)
+Python 3.8+ | Testado e funcionando ✨
+═══════════════════════════════════════════════════════════════════

@@ -1,0 +1,9 @@
+﻿Codigo_Produto;Nome_Produto;Descricao;Categoria;Estoque_Minimo;Valor_Unitario;Fornecedor;Localizacao
+P001;Parafuso M6;Parafuso sextavado 6mm;Fixação;100;0,5;Parafusos Brasil;A1
+P002;Tinta Branca 18L;Tinta acrílica branca;Pintura;10;85,0;Tintas Color;B3
+P003;Lixa Grão 100;Lixa para madeira;Acabamento;50;2,3;Abrasivos Sul;C2
+P004;Cola PVA 1kg;Cola branca uso geral;Adesivos;20;12,5;Química ABC;A2
+P005;Prego 2x12;Prego comum aço;Fixação;200;0,25;Ferro Forte;A1
+P006;Verniz 900ml;Verniz marítimo;Acabamento;15;34,9;Tintas Color;B2
+P007;Broca 6mm;Broca aço rápido;Ferramentas;25;8,75;Ferramentas Pro;D1
+P008;Fita Crepe 50m;Fita adesiva papel;Materiais;30;6,8;Adesivos Total;C1

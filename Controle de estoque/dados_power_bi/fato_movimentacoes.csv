@@ -1,0 +1,19 @@
+﻿Data_Movimentacao;Codigo_Produto;Quantidade_Movimento;Tipo_Movimentacao;Documento;Valor_Unitario;Ano;Mes;Mes_Nome;Dia;Dia_Semana;Trimestre
+2026-01-10;P001;500;Entrada;NF-12345;0,48;2026;1;January;10;Saturday;1
+2026-01-12;P002;50;Entrada;NF-12347;82,0;2026;1;January;12;Monday;1
+2026-01-14;P003;200;Entrada;NF-12350;2,2;2026;1;January;14;Wednesday;1
+2026-01-16;P004;100;Entrada;NF-12355;12,0;2026;1;January;16;Friday;1
+2026-01-19;P005;1000;Entrada;NF-12360;0,23;2026;1;January;19;Monday;1
+2026-01-21;P006;30;Entrada;NF-12365;33,5;2026;1;January;21;Wednesday;1
+2026-01-24;P007;50;Entrada;NF-12370;8,5;2026;1;January;24;Saturday;1
+2026-01-27;P001;300;Entrada;NF-12375;0,5;2026;1;January;27;Tuesday;1
+2026-01-29;P008;100;Entrada;NF-12380;6,5;2026;1;January;29;Thursday;1
+2026-01-11;P001;-150;Saída;Uso em produção;;2026;1;January;11;Sunday;1
+2026-01-13;P003;-80;Saída;Acabamento produto X;;2026;1;January;13;Tuesday;1
+2026-01-15;P002;-5;Saída;Pintura setor B;;2026;1;January;15;Thursday;1
+2026-01-17;P004;-35;Saída;Montagem;;2026;1;January;17;Saturday;1
+2026-01-20;P005;-450;Saída;Uso em produção;;2026;1;January;20;Tuesday;1
+2026-01-22;P001;-200;Saída;Venda cliente;;2026;1;January;22;Thursday;1
+2026-01-25;P006;-8;Saída;Acabamento final;;2026;1;January;25;Sunday;1
+2026-01-28;P007;-12;Saída;Manutenção;;2026;1;January;28;Wednesday;1
+2026-01-30;P008;-45;Saída;Embalagem;;2026;1;January;30;Friday;1

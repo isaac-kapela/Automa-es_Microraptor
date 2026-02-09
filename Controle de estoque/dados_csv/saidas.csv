@@ -1,0 +1,10 @@
+﻿Data da Saída,Produto / Material,Quantidade Retirada,Motivo da Saída
+11/01/2026,P001,150,Uso em produção
+13/01/2026,P003,80,Acabamento produto X
+15/01/2026,P002,5,Pintura setor B
+17/01/2026,P004,35,Montagem
+20/01/2026,P005,450,Uso em produção
+22/01/2026,P001,200,Venda cliente
+25/01/2026,P006,8,Acabamento final
+28/01/2026,P007,12,Manutenção
+30/01/2026,P008,45,Embalagem

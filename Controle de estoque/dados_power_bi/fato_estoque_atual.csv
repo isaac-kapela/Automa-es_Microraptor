@@ -1,0 +1,9 @@
+﻿Codigo_Produto;Estoque_Inicial;Total_Entradas;Total_Saidas;Saldo_Atual;Data_Referencia;Nome_Produto;Categoria;Valor_Unitario;Estoque_Minimo;Valor_Total_Estoque;Status_Estoque;Deficit_Estoque
+P001;0;;;;2026-02-08;Parafuso M6;Fixação;0,5;100;;Normal;0
+P002;0;;;;2026-02-08;Tinta Branca 18L;Pintura;85,0;10;;Normal;0
+P003;0;;;;2026-02-08;Lixa Grão 100;Acabamento;2,3;50;;Normal;0
+P004;0;;;;2026-02-08;Cola PVA 1kg;Adesivos;12,5;20;;Normal;0
+P005;0;;;;2026-02-08;Prego 2x12;Fixação;0,25;200;;Normal;0
+P006;0;;;;2026-02-08;Verniz 900ml;Acabamento;34,9;15;;Normal;0
+P007;0;;;;2026-02-08;Broca 6mm;Ferramentas;8,75;25;;Normal;0
+P008;0;;;;2026-02-08;Fita Crepe 50m;Materiais;6,8;30;;Normal;0

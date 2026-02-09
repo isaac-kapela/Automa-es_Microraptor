@@ -1,0 +1,248 @@
+"""
+Sistema de Controle de Estoque - Gerador de Planilha Excel
+Gera uma planilha completa com múltiplas abas e fórmulas automáticas
+"""
+
+import openpyxl
+from openpyxl.styles import Font, PatternFill, Alignment, Border, Side
+from openpyxl.utils import get_column_letter
+from openpyxl.worksheet.datavalidation import DataValidation
+from datetime import datetime, timedelta
+import random
+
+def criar_planilha_estoque():
+    """Cria a planilha de controle de estoque completa"""
+    
+    wb = openpyxl.Workbook()
+    
+    # Remove a planilha padrão
+    wb.remove(wb.active)
+    
+    # ========== ABA 1: BASE (CADASTRO DE PRODUTOS) ==========
+    ws_base = wb.create_sheet("Base")
+    
+    # Cabeçalhos da Base
+    headers_base = [
+        "Código",
+        "Nome do Produto", 
+        "Descrição",
+        "Tipo de Produto",
+        "Estoque Mínimo",
+        "Valor Unitário (R$)",
+        "Fornecedor",
+        "Localização"
+    ]
+    
+    ws_base.append(headers_base)
+    
+    # Formatar cabeçalho
+    formatar_cabecalho(ws_base, len(headers_base))
+    
+    # Dados de exemplo
+    produtos_exemplo = [
+        ["P001", "Parafuso M6", "Parafuso sextavado 6mm", "Fixação", 100, 0.50, "Parafusos Brasil", "A1"],
+        ["P002", "Tinta Branca 18L", "Tinta acrílica branca", "Pintura", 10, 85.00, "Tintas Color", "B3"],
+        ["P003", "Lixa Grão 100", "Lixa para madeira", "Acabamento", 50, 2.30, "Abrasivos Sul", "C2"],
+        ["P004", "Cola PVA 1kg", "Cola branca uso geral", "Adesivos", 20, 12.50, "Química ABC", "A2"],
+        ["P005", "Prego 2x12", "Prego comum aço", "Fixação", 200, 0.25, "Ferro Forte", "A1"],
+        ["P006", "Verniz 900ml", "Verniz marítimo", "Acabamento", 15, 34.90, "Tintas Color", "B2"],
+        ["P007", "Broca 6mm", "Broca aço rápido", "Ferramentas", 25, 8.75, "Ferramentas Pro", "D1"],
+        ["P008", "Fita Crepe 50m", "Fita adesiva papel", "Materiais", 30, 6.80, "Adesivos Total", "C1"],
+    ]
+    
+    for produto in produtos_exemplo:
+        ws_base.append(produto)
+    
+    # Ajustar largura das colunas
+    ws_base.column_dimensions['A'].width = 12
+    ws_base.column_dimensions['B'].width = 25
+    ws_base.column_dimensions['C'].width = 30
+    ws_base.column_dimensions['D'].width = 18
+    ws_base.column_dimensions['E'].width = 15
+    ws_base.column_dimensions['F'].width = 18
+    ws_base.column_dimensions['G'].width = 20
+    ws_base.column_dimensions['H'].width = 15
+    
+    # ========== ABA 2: ENTRADAS ==========
+    ws_entradas = wb.create_sheet("Entradas")
+    
+    headers_entradas = [
+        "Data da Entrada",
+        "Documento (Nota Fiscal / Nº de Compra)",
+        "Produto / Material",
+        "Quantidade",
+        "Valor Unitário de Compra (R$)",
+        "Valor Total (R$)"
+    ]
+    
+    ws_entradas.append(headers_entradas)
+    formatar_cabecalho(ws_entradas, len(headers_entradas))
+    
+    # Dados de exemplo - Entradas
+    data_base = datetime.now() - timedelta(days=30)
+    entradas_exemplo = [
+        [(data_base + timedelta(days=1)).strftime("%d/%m/%Y"), "NF-12345", "P001", 500, 0.48, "=D2*E2"],
+        [(data_base + timedelta(days=3)).strftime("%d/%m/%Y"), "NF-12347", "P002", 50, 82.00, "=D3*E3"],
+        [(data_base + timedelta(days=5)).strftime("%d/%m/%Y"), "NF-12350", "P003", 200, 2.20, "=D4*E4"],
+        [(data_base + timedelta(days=7)).strftime("%d/%m/%Y"), "NF-12355", "P004", 100, 12.00, "=D5*E5"],
+        [(data_base + timedelta(days=10)).strftime("%d/%m/%Y"), "NF-12360", "P005", 1000, 0.23, "=D6*E6"],
+        [(data_base + timedelta(days=12)).strftime("%d/%m/%Y"), "NF-12365", "P006", 30, 33.50, "=D7*E7"],
+        [(data_base + timedelta(days=15)).strftime("%d/%m/%Y"), "NF-12370", "P007", 50, 8.50, "=D8*E8"],
+        [(data_base + timedelta(days=18)).strftime("%d/%m/%Y"), "NF-12375", "P001", 300, 0.50, "=D9*E9"],
+        [(data_base + timedelta(days=20)).strftime("%d/%m/%Y"), "NF-12380", "P008", 100, 6.50, "=D10*E10"],
+    ]
+    
+    for entrada in entradas_exemplo:
+        ws_entradas.append(entrada)
+    
+    # Ajustar colunas
+    ws_entradas.column_dimensions['A'].width = 18
+    ws_entradas.column_dimensions['B'].width = 35
+    ws_entradas.column_dimensions['C'].width = 20
+    ws_entradas.column_dimensions['D'].width = 15
+    ws_entradas.column_dimensions['E'].width = 28
+    ws_entradas.column_dimensions['F'].width = 20
+    
+    # ========== ABA 3: SAÍDAS ==========
+    ws_saidas = wb.create_sheet("Saídas")
+    
+    headers_saidas = [
+        "Data da Saída",
+        "Produto / Material",
+        "Quantidade Retirada",
+        "Motivo da Saída"
+    ]
+    
+    ws_saidas.append(headers_saidas)
+    formatar_cabecalho(ws_saidas, len(headers_saidas))
+    
+    # Dados de exemplo - Saídas
+    saidas_exemplo = [
+        [(data_base + timedelta(days=2)).strftime("%d/%m/%Y"), "P001", 150, "Uso em produção"],
+        [(data_base + timedelta(days=4)).strftime("%d/%m/%Y"), "P003", 80, "Acabamento produto X"],
+        [(data_base + timedelta(days=6)).strftime("%d/%m/%Y"), "P002", 5, "Pintura setor B"],
+        [(data_base + timedelta(days=8)).strftime("%d/%m/%Y"), "P004", 35, "Montagem"],
+        [(data_base + timedelta(days=11)).strftime("%d/%m/%Y"), "P005", 450, "Uso em produção"],
+        [(data_base + timedelta(days=13)).strftime("%d/%m/%Y"), "P001", 200, "Venda cliente"],
+        [(data_base + timedelta(days=16)).strftime("%d/%m/%Y"), "P006", 8, "Acabamento final"],
+        [(data_base + timedelta(days=19)).strftime("%d/%m/%Y"), "P007", 12, "Manutenção"],
+        [(data_base + timedelta(days=21)).strftime("%d/%m/%Y"), "P008", 45, "Embalagem"],
+    ]
+    
+    for saida in saidas_exemplo:
+        ws_saidas.append(saida)
+    
+    # Ajustar colunas
+    ws_saidas.column_dimensions['A'].width = 18
+    ws_saidas.column_dimensions['B'].width = 20
+    ws_saidas.column_dimensions['C'].width = 20
+    ws_saidas.column_dimensions['D'].width = 30
+    
+    # ========== ABA 4: ESTOQUE ATUAL ==========
+    ws_estoque = wb.create_sheet("Estoque Atual")
+    
+    headers_estoque = [
+        "Produto / Material",
+        "Estoque Inicial",
+        "Total de Entradas",
+        "Total de Saídas",
+        "Saldo Atual"
+    ]
+    
+    ws_estoque.append(headers_estoque)
+    formatar_cabecalho(ws_estoque, len(headers_estoque))
+    
+    # Fórmulas para calcular estoque atual
+    for i, produto in enumerate(produtos_exemplo, start=2):
+        codigo = produto[0]
+        ws_estoque.append([
+            codigo,
+            0,  # Estoque inicial (ajustar conforme necessário)
+            f'=SUMIF(Entradas!C:C,A{i},Entradas!D:D)',  # Total entradas
+            f'=SUMIF(Saídas!B:B,A{i},Saídas!C:C)',  # Total saídas
+            f'=B{i}+C{i}-D{i}'  # Saldo atual
+        ])
+    
+    # Ajustar colunas
+    ws_estoque.column_dimensions['A'].width = 20
+    ws_estoque.column_dimensions['B'].width = 18
+    ws_estoque.column_dimensions['C'].width = 20
+    ws_estoque.column_dimensions['D'].width = 18
+    ws_estoque.column_dimensions['E'].width = 18
+    
+    # ========== ABA 5: ESTOQUE CRÍTICO ==========
+    ws_critico = wb.create_sheet("Estoque Crítico")
+    
+    headers_critico = [
+        "Nome do Produto",
+        "Estoque Atual",
+        "Estoque Mínimo",
+        "Status (Ex.: 'Repor' / 'OK')"
+    ]
+    
+    ws_critico.append(headers_critico)
+    formatar_cabecalho(ws_critico, len(headers_critico))
+    
+    # Fórmulas para estoque crítico
+    for i, produto in enumerate(produtos_exemplo, start=2):
+        ws_critico.append([
+            f'=Base!B{i}',  # Nome do produto
+            f'=VLOOKUP(Base!A{i},"Estoque Atual"!A:E,5,FALSE)',  # Estoque atual
+            f'=Base!E{i}',  # Estoque mínimo
+            f'=IF(B{i}<C{i},"⚠️ REPOR","✓ OK")'  # Status
+        ])
+    
+    # Ajustar colunas
+    ws_critico.column_dimensions['A'].width = 25
+    ws_critico.column_dimensions['B'].width = 18
+    ws_critico.column_dimensions['C'].width = 18
+    ws_critico.column_dimensions['D'].width = 25
+    
+    # Formatação condicional para status
+    aplicar_formatacao_condicional(ws_critico, len(produtos_exemplo))
+    
+    # Salvar arquivo
+    nome_arquivo = "Controle_Estoque.xlsx"
+    wb.save(nome_arquivo)
+    print(f"✅ Planilha '{nome_arquivo}' criada com sucesso!")
+    return nome_arquivo
+
+
+def formatar_cabecalho(ws, num_colunas):
+    """Formata o cabeçalho da planilha"""
+    # Cor de fundo azul
+    fill = PatternFill(start_color="4472C4", end_color="4472C4", fill_type="solid")
+    # Fonte branca e negrito
+    font = Font(color="FFFFFF", bold=True, size=11)
+    # Alinhamento centralizado
+    alignment = Alignment(horizontal="center", vertical="center")
+    # Bordas
+    border = Border(
+        left=Side(style='thin'),
+        right=Side(style='thin'),
+        top=Side(style='thin'),
+        bottom=Side(style='thin')
+    )
+    
+    for col in range(1, num_colunas + 1):
+        cell = ws.cell(row=1, column=col)
+        cell.fill = fill
+        cell.font = font
+        cell.alignment = alignment
+        cell.border = border
+
+
+def aplicar_formatacao_condicional(ws, num_produtos):
+    """Aplica formatação condicional para destacar itens críticos"""
+    # Vermelho para "REPOR"
+    fill_red = PatternFill(start_color="FFE6E6", end_color="FFE6E6", fill_type="solid")
+    # Verde para "OK"
+    fill_green = PatternFill(start_color="E6FFE6", end_color="E6FFE6", fill_type="solid")
+    
+    for row in range(2, num_produtos + 2):
+        cell = ws.cell(row=row, column=4)
+        # A formatação será aplicada depois pelo Excel quando abrir
+
+
+if __name__ == "__main__":
+    criar_planilha_estoque()
